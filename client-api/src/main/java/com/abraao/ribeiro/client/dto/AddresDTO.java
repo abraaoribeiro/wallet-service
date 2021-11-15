@@ -5,7 +5,6 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-@Setter
 public class AddresDTO {
 
     @NotBlank(message = "O campo zipCode não pode ser nulo ou vazio")
@@ -22,4 +21,12 @@ public class AddresDTO {
 
     @NotBlank(message = "O campo district não pode ser nulo ou vazio")
     private String district;
+
+    @NotBlank(message = "O campo city não pode ser nulo ou vazio")
+    private String city;
+
+    @NotBlank(message = "O campo state não pode ser nulo ou vazio")
+    private String state;
+
+
 }

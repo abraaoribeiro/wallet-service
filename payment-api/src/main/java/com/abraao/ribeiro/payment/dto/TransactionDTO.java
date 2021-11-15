@@ -6,15 +6,12 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class AccountDTO {
+public class TransactionDTO {
 
     private BigDecimal value;
 
-    private BankDTO bank;
+    private InfoAccountDTO accountSource;
 
-    private AccountSource accountSource;
-
-    private AccountTarget accountTarget;
-
+    private InfoAccountDTO accountTarget;
 
 }

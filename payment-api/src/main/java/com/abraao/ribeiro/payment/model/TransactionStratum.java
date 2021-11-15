@@ -13,18 +13,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-public class Transaction {
+public class TransactionStratum {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String uuidTransaction;
+    private String referenceTransactionId = UUID.randomUUID().toString();
 
     @Column(nullable = false)
     private BigDecimal currentValue;

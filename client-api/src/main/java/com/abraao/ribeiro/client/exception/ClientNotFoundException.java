@@ -8,7 +8,7 @@ public class ClientNotFoundException extends EntityNotFoundException {
         super(message);
     }
 
-    public ClientNotFoundException(Long id){
-        this(String.format("Não existe um casdastro de cliente com o id %d",id));
+    public ClientNotFoundException(Long cpf){
+        this(String.format("Não existe um casdastro de cliente com o cpf %d",cpf));
     }
 }

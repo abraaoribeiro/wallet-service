@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 @Getter
 public class BankDTO {
 
-    private String namber;
+    private String number;
+
+    private String name;
 
     private LocalDateTime createdAt;
 

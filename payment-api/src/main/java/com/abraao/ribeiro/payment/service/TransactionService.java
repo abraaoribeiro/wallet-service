@@ -1,14 +1,17 @@
 package com.abraao.ribeiro.payment.service;
 
-import com.abraao.ribeiro.payment.dto.AccountDTO;
-import com.abraao.ribeiro.payment.model.Account;
-import com.abraao.ribeiro.payment.model.Transaction;
+import com.abraao.ribeiro.payment.dto.InfoAccountDTO;
+import com.abraao.ribeiro.payment.dto.InfoClientDTO;
+import com.abraao.ribeiro.payment.dto.TransactionDTO;
+import com.abraao.ribeiro.payment.external.client.AccountResource;
+import com.abraao.ribeiro.payment.external.client.ClientResource;
+import com.abraao.ribeiro.payment.model.TransactionStratum;
 import com.abraao.ribeiro.payment.model.enums.TransactionType;
 import com.abraao.ribeiro.payment.model.enums.TransferType;
-import com.abraao.ribeiro.payment.repository.AccountRepository;
 import com.abraao.ribeiro.payment.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
@@ -16,33 +19,42 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    private final AccountRepository accountRepository;
+    private final AccountResource accountResource;
 
+    private final ClientResource clientResource;
 
-    public Transaction transaction(TransferType transferType, TransactionType transactionType, AccountDTO accountDTO) {
+    public TransactionStratum transaction(TransactionType transactionType, TransferType transferType,
+                                          TransactionDTO transactionDTO) {
 
-        Account account = new Account();
+        InfoAccountDTO accountSource = getAccountByClientReferenceId(transactionDTO.getAccountSource());
+        InfoAccountDTO accountTarget = getAccountByClientReferenceId(transactionDTO.getAccountTarget());
 
-        if(TransferType.DOC.equals(transferType)){
+        if (TransferType.DOC.equals(transferType)) {
             //TODO utilizar  a fila
         }
 
-        //TODO verificar se tem saldo suficiente na conta;
-        var valueCalculation = accountDTO.getAccountSource().getBalace().subtract(accountDTO.getValue());
-        accountDTO.getAccountTarget().getBalace().add(accountDTO.getValue());
+        if (hasBalance(accountSource.getBalance(), transactionDTO.getValue())) {
+            var balanceSource = accountSource.getBalance().subtract(transactionDTO.getValue());
+            var balanceTarget = accountTarget.getBalance().add(transactionDTO.getValue());
 
-        //TODO buscar a conta target no banco de tados.
+            accountResource.updateBalanceAccount(accountSource.getId(),balanceSource);
+            accountResource.updateBalanceAccount(accountTarget.getId(),balanceTarget);
+        }
 
-        account.setBalace(valueCalculation);
-        accountRepository.save(account);
+        //TODO gerar o estrato da transação
+        TransactionStratum transactionStratum = new TransactionStratum();
+        transactionStratum.setTransactionType(transactionType);
 
-        Transaction transaction = new Transaction();
-        transaction.setTransactionType(transactionType);
-
-        return transactionRepository.save(transaction);
+        return transactionRepository.save(transactionStratum);
     }
 
+    private boolean hasBalance(BigDecimal balance, BigDecimal value) {
+        return (balance.compareTo(BigDecimal.valueOf(value.doubleValue())) > 0);
+    }
 
-
+    private InfoAccountDTO getAccountByClientReferenceId(InfoAccountDTO accountDTO) {
+        InfoClientDTO client = clientResource.getClientByCpf(accountDTO.getClient().getCpf());
+        return accountResource.getAccountByReferenceClietId(client.getReferenceId());
+    }
 
 }

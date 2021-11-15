@@ -1,7 +1,7 @@
 package com.abraao.ribeiro.payment.controller;
 
-import com.abraao.ribeiro.payment.dto.AccountDTO;
-import com.abraao.ribeiro.payment.model.Transaction;
+import com.abraao.ribeiro.payment.dto.TransactionDTO;
+import com.abraao.ribeiro.payment.model.TransactionStratum;
 import com.abraao.ribeiro.payment.model.enums.TransactionType;
 import com.abraao.ribeiro.payment.model.enums.TransferType;
 import com.abraao.ribeiro.payment.repository.TransactionRepository;
@@ -23,14 +23,15 @@ public class TransactionController {
 
     private final TransactionRepository transactionRepository;
 
-    public List<Transaction> findAll(){
+    public List<TransactionStratum> findAll() {
         return transactionRepository.findAll();
     }
 
-    @PostMapping("transfer-type/{transferType}/transation-type/{transactionType}")
-    public Transaction transaction(@PathVariable TransferType transferType, @PathVariable TransactionType transactionType,
-                                   @RequestBody AccountDTO accountDTO){
+    @PostMapping("transation-type/{transactionType}/transfer-type/{transferType}")
+    public TransactionStratum transaction(@PathVariable TransactionType transactionType, @PathVariable TransferType transferType,
+                                          @RequestBody TransactionDTO transactionDTO) {
 
-        return transactionService.transaction(transferType,transactionType,accountDTO) ;
+        return transactionService.transaction(transactionType,transferType, transactionDTO);
     }
+
 }

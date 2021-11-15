@@ -24,9 +24,14 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String reverenceId;
+    @Column(nullable = false)
+    private String referenceId;
 
+    @Column(nullable = false)
     private String cpf;
+
+    @Column(nullable = false)
+    private String name;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -34,19 +39,25 @@ public class Client {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Column(name = "address_zipCode")
+    @Column(name = "address_zipCode", nullable = false)
     private String zipCode;
 
-    @Column(name = "address_place")
+    @Column(name = "address_place", nullable = false)
     private String place;
 
-    @Column(name = "address_number")
+    @Column(name = "address_number", nullable = false)
     private String number;
 
-    @Column(name = "address_complement")
+    @Column(name = "address_complement", nullable = false)
     private String complement;
 
-    @Column(name = "address_district")
+    @Column(name = "address_district", nullable = false)
     private String district;
+
+    @Column(name = "address_city", nullable = false)
+    private String city;
+
+    @Column(name = "address_state", nullable = false)
+    private String state;
 
 }
