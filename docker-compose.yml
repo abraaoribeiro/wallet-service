@@ -10,3 +10,43 @@ services:
       environment:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=wallet
+
+  microservice-eureka-server:
+      build:
+         dockerfile: ./Dockerfile
+         context: ./eureka-server
+      image: abraaoribeiro/microservice-eureka-server
+      container_name: microservice-eureka-server
+      ports:
+           - "8761:8761"
+
+  microservice-gateway:
+        build:
+           dockerfile: ./Dockerfile
+           context: ./gateway
+        image: abraaoribeiro/microservice-gateway
+        container_name: microservice-gateway
+        ports:
+             - "5555:5555"
+
+  microservice-client-api:
+      build:
+         dockerfile: ./Dockerfile
+         context: ./client-api
+      image: abraaoribeiro/microservice-client-api
+      container_name: microservice-client-api
+      ports:
+          - "8081:8081"
+      depends_on:
+          - wallet-service-db
+
+  microservice-payment-api:
+        build:
+           dockerfile: ./Dockerfile
+           context: ./payment-api
+        image: abraaoribeiro/microservice-payment-api
+        container_name: microservice-payment-api
+        ports:
+            - "8086:8086"
+        depends_on:
+            - wallet-service-db
