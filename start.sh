@@ -29,4 +29,4 @@ echo "========= Fim mvn build account-api, client-api, payment-api e gateway ===
 wait
 echo "========= Subindo os containers account-api, client-api, payment-api e gateway =============="
 docker-compose build microservice-client-api microservice-account-api microservice-payment-api microservice-gateway
-docker-compose up microservice-client-api microservice-account-api microservice-payment-api
+docker-compose up microservice-client-api microservice-account-api microservice-payment-api microservice-gateway
