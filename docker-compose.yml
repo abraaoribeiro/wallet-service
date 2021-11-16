@@ -1,15 +1,28 @@
 version: "3"
 
 services:
-  wallet-service-db:
+  wallet-mysql:
       image: mysql:8.0
-      container_name: wallet-service-db
+      container_name: mysql
       restart: always
       ports:
          - "3306:3306"
       environment:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=wallet
+      networks:
+        - common-network
+  microservice-config-server:
+          build:
+              dockerfile: ./Dockerfile
+              context: ./config-server
+          image: abraaoribeiro/microservice-config-server
+          container_name: microservice-config-server
+          restart: on-failure
+          ports:
+              - "8888:8888"
+          networks:
+              - common-network
 
   microservice-eureka-server:
       build:
@@ -17,8 +30,11 @@ services:
          context: ./eureka-server
       image: abraaoribeiro/microservice-eureka-server
       container_name: microservice-eureka-server
+      restart: always
       ports:
            - "8761:8761"
+      networks:
+           - common-network
 
   microservice-gateway:
         build:
@@ -26,8 +42,13 @@ services:
            context: ./gateway
         image: abraaoribeiro/microservice-gateway
         container_name: microservice-gateway
+        restart: always
+        depends_on:
+             - microservice-eureka-server
         ports:
              - "5555:5555"
+        networks:
+            - common-network
 
   microservice-client-api:
       build:
@@ -35,10 +56,27 @@ services:
          context: ./client-api
       image: abraaoribeiro/microservice-client-api
       container_name: microservice-client-api
-      ports:
-          - "8081:8081"
       depends_on:
-          - wallet-service-db
+          - wallet-mysql
+          - microservice-account-api
+          -  microservice-config-server
+      ports:
+          - "8084:8084"
+      networks:
+          - common-network
+
+  microservice-account-api:
+      build:
+         dockerfile: ./Dockerfile
+         context: ./account-api
+      image: abraaoribeiro/microservice-account-api
+      container_name: microservice-account-api
+      depends_on:
+           - wallet-mysql
+      ports:
+           - "8081:8081"
+      networks:
+           - common-network
 
   microservice-payment-api:
         build:
@@ -46,7 +84,15 @@ services:
            context: ./payment-api
         image: abraaoribeiro/microservice-payment-api
         container_name: microservice-payment-api
+        depends_on:
+            - wallet-mysql
+            - microservice-client-api
+            - microservice-account-api
         ports:
             - "8086:8086"
-        depends_on:
-            - wallet-service-db
+        networks:
+            - common-network
+
+networks:
+  common-network:
+      driver: bridge

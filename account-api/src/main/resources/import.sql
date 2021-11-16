@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS client;
-CREATE DATABASE IF NOT EXISTS account;
-CREATE DATABASE IF NOT EXISTS payment;
-
 INSERT INTO account.bank (name, namber,created_at,update_at) values ("Itáu", "144", '2021-05-08 21:31:32', '2021-05-08 21:31:32');
 INSERT INTO account.bank (name, namber,created_at, update_at) values ("Banco do Brasil", "522", '2021-05-08 21:31:32', '2021-05-08 21:31:32');
 

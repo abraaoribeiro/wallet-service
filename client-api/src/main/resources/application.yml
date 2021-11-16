@@ -1,17 +1,6 @@
 server:
     port: 8081
 
-spring:
-  application:
-    name: 'client'
-  datasource:
-    password: root
-    username: root
-    url: 'jdbc:mysql://localhost:3306/client?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true'
-  jpa:
-    hibernate:
-      ddl-auto: update
-
 eureka:
     client:
     register-with-eureka: true
