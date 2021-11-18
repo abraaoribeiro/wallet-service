@@ -1,11 +1,9 @@
 package com.abraao.ribeiro.account.dto;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class BankDTO {
-
-    private String number;
-
     private String name;
+    private String number;
 }

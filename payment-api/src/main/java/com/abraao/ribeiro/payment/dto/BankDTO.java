@@ -1,16 +1,9 @@
 package com.abraao.ribeiro.payment.dto;
 
-import lombok.Getter;
-import java.time.LocalDateTime;
+import lombok.Data;
 
-@Getter
+@Data
 public class BankDTO {
-
-    private String number;
-
     private String name;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updateAt;
+    private String number;
 }

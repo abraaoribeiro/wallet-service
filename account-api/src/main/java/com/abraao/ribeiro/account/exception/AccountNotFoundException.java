@@ -8,7 +8,4 @@ public class AccountNotFoundException extends EntityNotFaundException{
         super(message);
     }
 
-    public AccountNotFoundException(Long id){
-        this(String.format("Não existe um casdastro da conta com o id %d",id));
-    }
 }

@@ -1,11 +1,9 @@
-package com.abraao.ribeiro.payment.model.enums;
+package com.abraao.ribeiro.account.model.enums;
 
 public enum TransactionType {
     TRANSFERENC,
     WITHDRAW,
     DEPOSIT,
     PAYMENTACCOUNT,
-    DOC,
-    TED,
-    PIX
+    DOC,TED,PIX
 }

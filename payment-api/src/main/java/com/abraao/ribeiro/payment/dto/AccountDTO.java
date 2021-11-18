@@ -1,4 +1,4 @@
-package com.abraao.ribeiro.account.dto;
+package com.abraao.ribeiro.payment.dto;
 
 import lombok.Data;
 import java.io.Serializable;
@@ -7,9 +7,9 @@ import java.math.BigDecimal;
 @Data
 public class AccountDTO implements Serializable {
 
-    private String referenceTransactionId;
-
     private String number;
+
+    private String referenceTransactionId;
 
     private String agency;
 

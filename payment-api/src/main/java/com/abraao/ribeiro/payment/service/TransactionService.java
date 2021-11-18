@@ -1,60 +1,108 @@
 package com.abraao.ribeiro.payment.service;
 
-import com.abraao.ribeiro.payment.dto.InfoAccountDTO;
-import com.abraao.ribeiro.payment.dto.InfoClientDTO;
 import com.abraao.ribeiro.payment.dto.TransactionDTO;
-import com.abraao.ribeiro.payment.external.client.AccountResource;
-import com.abraao.ribeiro.payment.external.client.ClientResource;
+import com.abraao.ribeiro.payment.message.producer.TransactionProducerService;
 import com.abraao.ribeiro.payment.model.TransactionStratum;
 import com.abraao.ribeiro.payment.model.enums.TransactionType;
-import com.abraao.ribeiro.payment.model.enums.TransferType;
 import com.abraao.ribeiro.payment.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import java.math.BigDecimal;
+import org.springframework.util.Assert;
+import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    private final AccountResource accountResource;
+    private final TransactionProducerService transactionProducerService;
 
-    private final ClientResource clientResource;
+    public TransactionStratum createTransaction(TransactionDTO transactionDTO) {
 
-    public TransactionStratum transaction(TransactionType transactionType, TransferType transferType,
-                                          TransactionDTO transactionDTO) {
+        checkBalanceAccount(transactionDTO);
 
-        InfoAccountDTO accountSource = getAccountByClientReferenceId(transactionDTO.getAccountSource());
-        InfoAccountDTO accountTarget = getAccountByClientReferenceId(transactionDTO.getAccountTarget());
+        var sourceBalance = transactionDTO.getAccountSource().getBalance().subtract(transactionDTO.getValue());
+        var targetBalace = transactionDTO.getAccountTarget().getBalance().add(transactionDTO.getValue());
 
-        if (TransferType.DOC.equals(transferType)) {
-            //TODO utilizar  a fila
-        }
+        //TODO refatorar para mapStruct e setar o tipo da transação
+        TransactionStratum transactionStratumSource = TransactionStratum.builder()
+                .transactionType(transactionDTO.getTransactionType())
+                .referenceTransactionId(transactionDTO.getAccountSource().getReferenceTransactionId())
+                .transferredValue(transactionDTO.getValue())
+                .previousBalance(transactionDTO.getAccountSource().getBalance())
+                .currentBalance(sourceBalance)
+                .clientCpfSource(transactionDTO.getAccountSource().getClient().getCpf())
+                .clientNameSource(transactionDTO.getAccountSource().getClient().getName())
+                .bankNumberSource(transactionDTO.getAccountSource().getBank().getNumber())
+                .bankNameSource(transactionDTO.getAccountSource().getBank().getName())
+                .clientCpfSource(transactionDTO.getAccountTarget().getClient().getCpf())
+                .clientNameSource(transactionDTO.getAccountTarget().getClient().getName())
+                .bankNumberSource(transactionDTO.getAccountTarget().getBank().getNumber())
+                .bankNameSource(transactionDTO.getAccountTarget().getBank().getName())
+                .clientCpfTarget(transactionDTO.getAccountTarget().getClient().getCpf())
+                .clientNameTarget(transactionDTO.getAccountTarget().getClient().getName())
+                .bankNumberTarget(transactionDTO.getAccountTarget().getBank().getNumber())
+                .bankNameTarget(transactionDTO.getAccountTarget().getBank().getName())
+                .clientCpfTarget(transactionDTO.getAccountSource().getClient().getCpf())
+                .clientNameTarget(transactionDTO.getAccountSource().getClient().getName())
+                .bankNumberTarget(transactionDTO.getAccountSource().getBank().getNumber())
+                .bankNameTarget(transactionDTO.getAccountSource().getBank().getName())
+                .build();
 
-        if (hasBalance(accountSource.getBalance(), transactionDTO.getValue())) {
-            var balanceSource = accountSource.getBalance().subtract(transactionDTO.getValue());
-            var balanceTarget = accountTarget.getBalance().add(transactionDTO.getValue());
+        transactionRepository.save(transactionStratumSource);
 
-            accountResource.updateBalanceAccount(accountSource.getId(),balanceSource);
-            accountResource.updateBalanceAccount(accountTarget.getId(),balanceTarget);
-        }
+        //TODO refatorar para mapStruct
+        TransactionStratum transactionStratumTarget = TransactionStratum.builder()
+                .transactionType(transactionDTO.getTransactionType())
+                .referenceTransactionId(transactionDTO.getAccountTarget().getReferenceTransactionId())
+                .transferredValue(transactionDTO.getValue())
+                .previousBalance(transactionDTO.getAccountTarget().getBalance())
+                .currentBalance(targetBalace)
+                .clientCpfTarget(transactionDTO.getAccountTarget().getClient().getCpf())
+                .clientNameTarget(transactionDTO.getAccountTarget().getClient().getName())
+                .bankNumberTarget(transactionDTO.getAccountTarget().getBank().getNumber())
+                .bankNameTarget(transactionDTO.getAccountTarget().getBank().getName())
+                .clientCpfTarget(transactionDTO.getAccountSource().getClient().getCpf())
+                .clientNameTarget(transactionDTO.getAccountSource().getClient().getName())
+                .bankNumberTarget(transactionDTO.getAccountSource().getBank().getNumber())
+                .bankNameTarget(transactionDTO.getAccountSource().getBank().getName())
+                .clientCpfSource(transactionDTO.getAccountSource().getClient().getCpf())
+                .clientNameSource(transactionDTO.getAccountSource().getClient().getName())
+                .bankNumberSource(transactionDTO.getAccountSource().getBank().getNumber())
+                .bankNameSource(transactionDTO.getAccountSource().getBank().getName())
+                .clientCpfSource(transactionDTO.getAccountTarget().getClient().getCpf())
+                .clientNameSource(transactionDTO.getAccountTarget().getClient().getName())
+                .bankNumberSource(transactionDTO.getAccountTarget().getBank().getNumber())
+                .bankNameSource(transactionDTO.getAccountTarget().getBank().getName())
+                .build();
 
-        //TODO gerar o estrato da transação
-        TransactionStratum transactionStratum = new TransactionStratum();
-        transactionStratum.setTransactionType(transactionType);
+        transactionRepository.save(transactionStratumTarget);
 
-        return transactionRepository.save(transactionStratum);
+        //TODO separar para um metodo
+        transactionDTO.getAccountSource().setBalance(sourceBalance);
+        transactionDTO.getAccountTarget().setBalance(targetBalace);
+
+        //TODO colocar a transação Target na fila;
+        transactionProducerService.sendTransation(transactionStratumTarget);
+
+       // if (transactionDTO.getTransactionType().equals(TransactionType.DOC)) {
+         //   transactionProducerService.sendTransation(transactionDTO);
+       // }
+
+        return transactionStratumSource;
     }
 
-    private boolean hasBalance(BigDecimal balance, BigDecimal value) {
-        return (balance.compareTo(BigDecimal.valueOf(value.doubleValue())) > 0);
+    private void checkBalanceAccount(TransactionDTO transactionDTO) {
+        var hasBalance = transactionDTO.getAccountSource().getBalance().compareTo(transactionDTO.getValue());
+        Assert.isTrue(hasBalance >= 0, "Você não possui saldo para essa transação");
     }
 
-    private InfoAccountDTO getAccountByClientReferenceId(InfoAccountDTO accountDTO) {
-        InfoClientDTO client = clientResource.getClientByCpf(accountDTO.getClient().getCpf());
-        return accountResource.getAccountByReferenceClietId(client.getReferenceId());
+    public TransactionStratum findTransactionByReferenceId(String referenceTransactionId) {
+        return transactionRepository.findByReferenceTransactionId(referenceTransactionId)
+                .orElseThrow(() -> new EntityNotFoundException("Transação não encontrada"));
     }
-
 }

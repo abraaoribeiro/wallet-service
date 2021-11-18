@@ -13,6 +13,22 @@ services:
       networks:
         - common-network
 
+  rabbitmq:
+      image: rabbitmq:3-management
+      container_name: rabbitmq
+      restart: always
+      ports:
+         - 5672:5672
+         - 15672:15672
+      volumes:
+          - ./data:/var/lib/rabbitmq/
+      environment:
+          - RABBITMQ_DEFAULT_USER=admin
+          - RABBITMQ_DEFAULT_PASS=123456
+
+      networks:
+            - common-network
+
   microservice-config-server:
           build:
               dockerfile: ./Dockerfile
@@ -56,23 +72,23 @@ services:
         networks:
             - common-network
 
-  microservice-client-api:
-      build:
-         dockerfile: ./Dockerfile
-         context: ./client-api
-      image: abraaoribeiro/microservice-client-api
-      container_name: microservice-client-api
-      depends_on:
-          - wallet-mysql
-          - microservice-account-api
-          - microservice-config-server
-      ports:
-          - "8084:8084"
-      environment:
-               eureka.client.serviceUrl.defaultZone: http://microservice-eureka-server:8761/eureka/
-               spring.cloud.config.uri: http://microservice-config-server:8888
-      networks:
-          - common-network
+  microservice-payment-api:
+         build:
+            dockerfile: ./Dockerfile
+            context: ./payment-api
+         image: abraaoribeiro/microservice-payment-api
+         container_name: microservice-payment-api
+         depends_on:
+             - wallet-mysql
+             - rabbitmq
+             - microservice-eureka-server
+         ports:
+             - "8086:8086"
+         environment:
+                 eureka.client.serviceUrl.defaultZone: http://microservice-eureka-server:8761/eureka/
+                 spring.cloud.config.uri: http://microservice-config-server:8888
+         networks:
+             - common-network
 
   microservice-account-api:
       build:
@@ -82,8 +98,10 @@ services:
       container_name: microservice-account-api
       depends_on:
            - wallet-mysql
+           - rabbitmq
            - microservice-config-server
            - microservice-eureka-server
+           - microservice-payment-api
       links:
            - wallet-mysql:wallet-mysql
            - microservice-eureka-server
@@ -95,24 +113,6 @@ services:
       networks:
            - common-network
 
-  microservice-payment-api:
-        build:
-           dockerfile: ./Dockerfile
-           context: ./payment-api
-        image: abraaoribeiro/microservice-payment-api
-        container_name: microservice-payment-api
-        depends_on:
-            - wallet-mysql
-            - microservice-client-api
-            - microservice-account-api
-            - microservice-eureka-server
-        ports:
-            - "8086:8086"
-        environment:
-                eureka.client.serviceUrl.defaultZone: http://microservice-eureka-server:8761/eureka/
-                spring.cloud.config.uri: http://microservice-config-server:8888
-        networks:
-            - common-network
 
 networks:
     common-network :

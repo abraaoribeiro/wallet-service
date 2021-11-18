@@ -12,8 +12,8 @@ public class BankService {
 
     private final BankRepository bankRepository;
 
-    public Bank findOrFail(Long id){
-        return bankRepository.findById(id).orElseThrow(() -> new EntityNotFaundException("O banco informado não está cadastrado"));
+    public Bank findOrFail(String id){
+        return bankRepository.findByNumber(id).orElseThrow(() -> new EntityNotFaundException("O banco informado não está cadastrado"));
     }
 
 }

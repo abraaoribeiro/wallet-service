@@ -1,4 +1,4 @@
-package com.abraao.ribeiro.account.dto;
+package com.abraao.ribeiro.payment.dto;
 
 import lombok.Data;
 import java.io.Serializable;
@@ -9,7 +9,5 @@ public class ClientDTO implements Serializable {
     private String name;
 
     private String cpf;
-
-    private AddressDTO address;
 
 }

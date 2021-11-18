@@ -27,10 +27,7 @@ public class Account {
     private Long id;
 
     @Column(nullable = false)
-    private String referenceClientId;
-
-    @Column(nullable = false)
-    private String number;
+    private String numberAccount;
 
     @Column(nullable = false)
     private String agency;
@@ -48,4 +45,37 @@ public class Account {
     @JoinColumn(nullable = false)
     private Bank bank;
 
+    @Column(nullable = false)
+    private String referenceTransactionId;
+
+    @Column(name = "client_cpf", nullable = false)
+    private String cpf;
+
+    @Column(name = "client_name", nullable = false)
+    private String name;
+
+    @Column(name = "address_zipCode", nullable = false)
+    private String zipCode;
+
+    @Column(name = "address_place", nullable = false)
+    private String place;
+
+    @Column(name = "address_number", nullable = false)
+    private String number;
+
+    @Column(name = "address_complement", nullable = false)
+    private String complement;
+
+    @Column(name = "address_district", nullable = false)
+    private String district;
+
+    @Column(name = "address_city", nullable = false)
+    private String city;
+
+    @Column(name = "address_state", nullable = false)
+    private String state;
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 }

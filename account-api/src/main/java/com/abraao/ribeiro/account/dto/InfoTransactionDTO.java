@@ -1,12 +1,12 @@
-package com.abraao.ribeiro.payment.dto;
+package com.abraao.ribeiro.account.dto;
 
-import com.abraao.ribeiro.payment.model.enums.TransactionType;
+import com.abraao.ribeiro.account.model.enums.TransactionType;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class TransactionDTO implements Serializable {
+public class InfoTransactionDTO  implements Serializable {
 
     private BigDecimal value;
 
@@ -15,5 +15,4 @@ public class TransactionDTO implements Serializable {
     private AccountDTO accountSource;
 
     private AccountDTO accountTarget;
-
 }
