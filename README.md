@@ -82,7 +82,7 @@ porém caso não insira automaticamente os dados, você pode executá -los manua
 
 [Swagger Account API](http://localhost:5555/account/swagger-ui.html)
 
-[Rabbitmq](http://localhost:15672/#/) (usuário: admin , senha : admin)
+[Rabbitmq](http://localhost:15672/#/) (usuário: admin , senha : 123456)
 
 [API Gateway - routes](http://localhost:5555/actuator/routes)
 
