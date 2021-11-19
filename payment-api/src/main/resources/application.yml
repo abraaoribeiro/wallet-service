@@ -2,12 +2,20 @@ server:
     port: 8086
 
 spring:
-    rabbitmq:
+  datasource:
+    url: jdbc:h2:./data/db
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+  rabbitmq:
       host: localhost
       port: 5672
       username: admin
       password: 123456
-    listener:
+  listener:
           simple:
             retry:
               enabled: true
@@ -16,6 +24,7 @@ spring:
               max-interval: 10000
               multiplier: 2.0
               stateless: true
+
 eureka:
     client:
     register-with-eureka: true

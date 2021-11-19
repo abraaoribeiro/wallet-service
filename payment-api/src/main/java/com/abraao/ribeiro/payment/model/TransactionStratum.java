@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,13 +23,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionStratum {
-
-    //TODO separar em entidades e passar o DTO no reuquest;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,31 +50,25 @@ public class TransactionStratum {
     @CreationTimestamp
     private LocalDateTime dateTimeTransaction;
 
-    @Column(name = "clientCpfSource")
-    private String clientCpfSource;
-
-    @Column(name = "clientNameSource")
-    private String clientNameSource;
-
-    @Column(name = "bankNameSource")
-    private String bankNameSource;
-
-    @Column(name = "bankNumberSource")
-    private String bankNumberSource;
-
-    @Column(name = "bankNumberTarget")
-    private String bankNumberTarget;
-
-    @Column(name = "bankNameTarget")
-    private String bankNameTarget;
-
-    @Column(name = "clientCpfTarget")
-    private String clientCpfTarget;
-
-    @Column(name = "clientNameTarget")
-    private String clientNameTarget;
-
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "client.name", column = @Column(name = "client_name_source")),
+            @AttributeOverride(name = "client.cpf", column = @Column(name = "client_cpf_source")),
+            @AttributeOverride(name = "bank.number", column = @Column(name = "bank_number_source")),
+            @AttributeOverride(name = "bank.name", column = @Column(name = "bank_name_source"))
+    })
+    private Account accountSource;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "client.name", column = @Column(name = "client_name_target")),
+            @AttributeOverride(name = "client.cpf", column = @Column(name = "client_cpf_target")),
+            @AttributeOverride(name = "bank.number", column = @Column(name = "bank_number_target")),
+            @AttributeOverride(name = "bank.name", column = @Column(name = "bank_name_target"))
+    })
+    private Account accountTarget;
 
 }

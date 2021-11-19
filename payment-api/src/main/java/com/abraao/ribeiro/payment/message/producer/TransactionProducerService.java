@@ -1,6 +1,5 @@
 package com.abraao.ribeiro.payment.message.producer;
 
-import com.abraao.ribeiro.payment.dto.TransactionDTO;
 import com.abraao.ribeiro.payment.model.TransactionStratum;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

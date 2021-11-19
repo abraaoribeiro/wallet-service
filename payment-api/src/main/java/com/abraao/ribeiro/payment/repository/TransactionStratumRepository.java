@@ -6,8 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<TransactionStratum,Long> {
+public interface TransactionStratumRepository extends JpaRepository<TransactionStratum,Long> {
 
     Optional<TransactionStratum> findByReferenceTransactionId(String referenceTransactionId);
+
 
 }

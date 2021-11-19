@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
 @RequestMapping("/transactions")
 @RequiredArgsConstructor
 public class TransactionController {
 
-    //TOOD refatorar os metodos deixar em so padrao
     private final TransactionService transactionService;
 
-    @PostMapping("/{transactionType}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public TransactionStratum createTransaction(@PathVariable TransactionType transactionType, @RequestBody TransactionDTO transactionDTO) {
-        return transactionService.createTransaction(transactionDTO);
+    @GetMapping()
+    public List<TransactionStratum> findAll(){
+        return transactionService.findAll();
     }
 
     @GetMapping("/{referenceTransactionId}")
@@ -33,4 +32,12 @@ public class TransactionController {
     public TransactionStratum findTransactionByReferenceId(@PathVariable String referenceTransactionId){
         return transactionService.findTransactionByReferenceId(referenceTransactionId);
     }
+
+    @PostMapping("/{transactionType}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransactionStratum createTransaction(@PathVariable TransactionType transactionType, @RequestBody TransactionDTO transactionDTO) {
+        return transactionService.createTransaction(transactionDTO);
+    }
+
+
 }
