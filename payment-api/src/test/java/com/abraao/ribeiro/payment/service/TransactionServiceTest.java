@@ -10,7 +10,6 @@ import com.abraao.ribeiro.payment.model.enums.TransactionType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.math.BigDecimal;
@@ -27,7 +26,7 @@ public class TransactionServiceTest {
     public TransactionService transactionService;
 
     @Test
-    void given_TransactionDTO_WhenCreateTransaction_Then_Return_TransactionStratum_Check_NotNull() {
+    void given_TransactionDTO_when_CreateTransaction_then_Return_TransactionStratum_Check_NotNull() {
         BankDTO bankSourceDTO = new BankDTO();
         bankSourceDTO.setName("Banco do Brasil");
         bankSourceDTO.setNumber("522");
