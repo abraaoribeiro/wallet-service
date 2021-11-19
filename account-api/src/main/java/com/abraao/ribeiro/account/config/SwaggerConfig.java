@@ -40,7 +40,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Account API")
-                .description("API para gerênciamento de uma carteira digital.")
+                .description("API Carteira Digital.")
                 .version("1")
                 .contact(new Contact("Abraão Ribeiro", "https://github.com/abraaoribeiro", "abraaohdg@gmail.com"))
                 .build();
