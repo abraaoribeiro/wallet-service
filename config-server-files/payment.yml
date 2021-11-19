@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    password: root
+    username: root
+    url: 'jdbc:mysql://wallet-mysql:3306/payment?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true'
+  jpa:
+    hibernate:
+      ddl-auto: update
