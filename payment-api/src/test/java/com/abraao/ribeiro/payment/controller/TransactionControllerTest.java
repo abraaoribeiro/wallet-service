@@ -32,6 +32,7 @@ public class TransactionControllerTest {
     @MockBean
     private TransactionService transactionService;
 
+    @Test
     void given_TransactionDTO_when_CreateTransaction_then_Retrun_HttpStatus_Create() throws Exception {
         BankDTO bankSourceDTO = new BankDTO();
         bankSourceDTO.setName("Banco do Brasil");
