@@ -1,6 +1,6 @@
 package com.abraao.ribeiro.account.message.consumer;
 
-import com.abraao.ribeiro.account.dto.TransactionStratumDTO;
+import com.abraao.ribeiro.account.dto.transaction.TransactionStratumDTO;
 import com.abraao.ribeiro.account.service.AccountService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,7 +26,7 @@ public class RabbitConsumerService {
     @RabbitListener(queues = {QUEEU_TRANSACTION})
     public void getInfoTransactionStratum (String message) throws JsonProcessingException {
         TransactionStratumDTO infoTransactionStratum = new ObjectMapper().readValue(message, TransactionStratumDTO.class);
-        log.info("Messagem recebida. Conta target para realizar atualização dos valores {}", infoTransactionStratum);
+        log.info("Mensagem recebida {}", infoTransactionStratum);
         accountService.updateAccountBalaceTarget(infoTransactionStratum);
     }
 
