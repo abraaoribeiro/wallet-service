@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "43b5c44b-5537-4bdb-9ded-1ebadae58c52",
+		"name": "Wallet-Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Eureka",
+			"item": [
+				{
+					"name": "EUREKA-apps",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8761/eureka/apps",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8761",
+							"path": [
+								"eureka",
+								"apps"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Config-Server",
+			"item": [
+				{
+					"name": "CONFIG-SERVER-config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/account/default",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"account",
+								"default"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API Gateway",
+			"item": [
+				{
+					"name": "GATEWAY-routes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5555/actuator/routes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5555",
+							"path": [
+								"actuator",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "ACCOUNT-create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"number\": \"1164808-2\",\n    \"agency\": \"0071\",\n    \"balance\": \"2000\",\n    \"bank\": {\n        \"number\": \"144\"\n    },\n    \"client\":{\n        \"name\": \"João da Silva\",\n        \"cpf\": \"696.506.700-41\",\n        \"address\":{\n        \"zipCode\": \"67015-300\",\n        \"place\": \"Passagem Maria\",\n        \"number\": \"85\",\n        \"complement\": \"Px ao Supermercado Eldorado\",\n        \"district\": \"Coqueiro\",\n        \"state\": \"PA\",\n        \"city\": \"Belém\"\n    }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5555/account/accounts/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5555",
+							"path": [
+								"account",
+								"accounts",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ACCOUNT-create-transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUQ3ROaF9BZEtKM0FiOFZhRzVaOUNlby1ma2ZYUHI3VjYyT2tQeUM0M2lBIn0.eyJleHAiOjE2MzczNjIwNDQsImlhdCI6MTYzNzM2MTc0NCwianRpIjoiMTk1NmM0YTktODcwYS00OGRiLWFhZWEtY2I2NjM5YTZkMzUzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDg1L2F1dGgvcmVhbG1zL3dhbGxldC1zZXJ2aWNlIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjVkMTFmOGMwLTIyNGMtNDRiYi04MzQ3LTc2ZmJjMzA3YWUxNCIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFjY291bnQtYXBpIiwic2Vzc2lvbl9zdGF0ZSI6IjU5MzljNzc0LWQyYjQtNGI2Ny1iZDBiLTdkMGRkZjMzZWVkNSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlciJ9.FRCePwHb_CdSrcL3jFJticHN3TnOKtxL2X1dENqAjfqGcN0I2YtHw-btcMZkBzOh_7vVql2_YexdqWY4peU0S3unni-k8qVXKK-op2wrc5Ez1rjbB5tKbcZynoMay8kN1jbOj1-5f_cRDglWOGurGRshMILBkP8VI6hPWXyTHCZ8t4MtEsCdQWetwZuozyemIHViGdSvjVf4kfKJU8CJx5KudjGkG077xDYQv9cOUwbL1vxEQk5jdyElweCCPdzyU8HFgWj4EHryWpZH95i59kG0BeQxxicz-xeK-YgtfJBWHcrwuvq_lwfmaYpCgVYqTdQQziXL2AKCo9akIDzigw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"value\": 100,\n    \"accountSource\":{\n       \"bank\": {\n            \"number\": \"144\"\n        },\n        \"number\": \"001\",\n        \"agency\": \"0002\",\n        \"client\": {\n            \"name\": \"Maria\",\n            \"cpf\": \"842.245.280-45\"\n        }\n    },\n    \"accountTarget\":{\n        \"bank\": {\n            \"number\": \"522\"\n        },\n        \"number\": \"002\",\n        \"agency\": \"0003\",\n         \"client\": {\n            \"name\": \"Joao\",\n            \"cpf\": \"696.506.700-41\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/accounts/TRANSFERENC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"accounts",
+								"TRANSFERENC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ACCOUNT-findAllTransationStratum",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/accounts/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"accounts",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "PAYMENT-createTransaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"value\": 50,\n    \"accountSource\":{\n        \"bankId\": 1,\n        \"namber\": \"001\",\n        \"agency\": \"0002\",\n        \"client\": {\n            \"name\": \"Maria\",\n            \"cpf\": \"064.795.480-00\"\n        }\n    },\n    \"accountTarget\":{\n        \"bankId\": 2,\n        \"namber\": \"002\",\n        \"agency\": \"0003\",\n         \"client\": {\n            \"name\": \"Joao\",\n            \"cpf\": \"922.265.460-90\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5555/payment/transactions/transation-type/TRANSFERENC/transfer-type/DOC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5555",
+							"path": [
+								"payment",
+								"transactions",
+								"transation-type",
+								"TRANSFERENC",
+								"transfer-type",
+								"DOC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PAYMENT-publishTransation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5555/payment/publish/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5555",
+							"path": [
+								"payment",
+								"publish",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Keycloak",
+			"item": [
+				{
+					"name": "Bearer Token Keyclok",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "account-api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "d6e1e8a3-3713-4658-9178-aae73a2c1e09",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8085/auth/realms/wallet-service/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"auth",
+								"realms",
+								"wallet-service",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
