@@ -11,5 +11,5 @@ spring:
             enabled: false
         git:
           label: master
-          uri: https://github.com/abraaoribeiro/microservice-repo
-          search-paths: client,account,payment
+          uri: https://github.com/abraaoribeiro/wallet-service
+          search-paths: config-server-files

@@ -6,7 +6,7 @@ spring:
         initialization-mode: always
         continue-on-error: true
     rabbitmq:
-      host: localhost
+      host: rabbitmq
       port: 5672
       username: admin
       password: 123456
