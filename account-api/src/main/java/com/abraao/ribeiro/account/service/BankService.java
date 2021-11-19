@@ -12,8 +12,8 @@ public class BankService {
 
     private final BankRepository bankRepository;
 
-    public Bank findOrFail(String id){
-        return bankRepository.findByNumber(id).orElseThrow(() -> new BankNotFoundException(id));
+    public Bank findOrFail(String number){
+        return bankRepository.findByNumber(number).orElseThrow(() -> new BankNotFoundException(number));
     }
 
 }

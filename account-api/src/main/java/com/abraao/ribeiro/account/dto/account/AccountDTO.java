@@ -9,6 +9,10 @@ public class AccountDTO implements Serializable {
 
     private String referenceTransactionId;
 
+    private String number;
+
+    private String agency;
+
     private BigDecimal balance;
 
     private BankDTO bank;
