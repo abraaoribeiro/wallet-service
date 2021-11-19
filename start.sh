@@ -14,13 +14,13 @@ wait
 echo "========= Subindo os containers Config server, Eureka server  =============="
 docker-compose build  microservice-config-server microservice-eureka-server
 docker-compose up -d microservice-config-server microservice-eureka-server
-echo "========= Fim Run docker Config server, Eureka server e keycloak =============="
+echo "========= Fim Run docker Config server, Eureka server =============="
 echo "========= Aguardando 5 segundos para Config server e Eureka server subir =============="
 sleep 5
 
 echo "========= Iniciando mvn build account-api, client-api, payment-api e gateway =============="
-mvn clean package -f ./account-api/pom.xml -DskipTests & \
-mvn clean package -f ./payment-api/pom.xml -DskipTests & \
+mvn clean package -f ./account-api/pom.xml & \
+mvn clean package -f ./payment-api/pom.xml & \
 mvn clean package -f ./gateway/pom.xml -DskipTests
 
 echo "========= Fim mvn build account-api, client-api, payment-api e gateway =============="
