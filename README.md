@@ -1,7 +1,7 @@
 # Wallet Service
 ## Sobre o projeto
 
-Wallet Service é um projeto baseado na arquitetura de microservices, onde seu principal propósito é o gerenciamento de transferências e sua integridade.
+Wallet Service é um projeto baseado na arquitetura de microservices, onde seu principal propósito é o gerenciamento de transações e garantir sua integridade.
 
 ## Tecnologias utilizadas e Ferramentas
 
