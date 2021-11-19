@@ -51,7 +51,7 @@ As configurações internalizadas na pasta config-server-files
 Obs: No script contém apenas comandos para realizar o build dos microserviços e
 buildar/subir os dockers
 
-1 . Na raiz do projeto execute o comando abaixo para dar permissão ao arquivo.
+1 . Abra seu terminal e na raiz do projeto execute o comando abaixo para dar permissão ao arquivo.
 
 ```sh
 chmod +x start.sh
