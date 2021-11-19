@@ -11,10 +11,10 @@ mvn clean package -f ./eureka-server/pom.xml -DskipTests &
 echo "========= Fim mvn build Config server e Eureka server =============="
 wait
 
-echo "========= Subindo os containers Config server e Eureka server =============="
-docker-compose build  microservice-config-server microservice-eureka-server
-docker-compose up -d microservice-config-server microservice-eureka-server
-echo "========= Fim Run docker Config server e Eureka server =============="
+echo "========= Subindo os containers Config server, Eureka server e Keycloak =============="
+docker-compose build  microservice-config-server microservice-eureka-server keycloak
+docker-compose up -d microservice-config-server microservice-eureka-server keycloak
+echo "========= Fim Run docker Config server, Eureka server e keycloak =============="
 echo "========= Aguardando 5 segundos para Config server e Eureka server subir =============="
 sleep 5
 
