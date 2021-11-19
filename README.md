@@ -67,8 +67,8 @@ chmod +x start.sh
 ## Facilitadores para realização de teste 
 
 1 . Para poupar tempo foi criado inserts para adicionar Bancos e Contas automaticamente,
-porém caso não insira automaticamente os dados, você pode executá -los manualmente. O script sql está no arquivo
-data.sql, na pasta resources.
+porém caso não insira automaticamente os dados, você pode executá -los manualmente. [Script sql](https://github.com/abraaoribeiro/wallet-service/blob/master/account-api/src/main/resources/data.sql)
+
 
 ` Configuração do banco de dados` :
 
