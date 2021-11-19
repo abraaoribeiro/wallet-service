@@ -1,14 +1,22 @@
+
 server:
     port: 8086
 
 spring:
-    rabbitmq:
+  datasource:
+    url: jdbc:h2:./data/db
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+  rabbitmq:
       host: localhost
       port: 5672
       username: admin
       password: 123456
 
-    listener:
+  listener:
           simple:
             retry:
               enabled: true
@@ -24,13 +32,3 @@ eureka:
     fetch-registry: true
     service-url:
         defaultZone: http://localhost:8761/eureka
-
-keycloak:
-    auth-server-url: ${KEYCLOAK_URL:http://localhost:8085/auth}
-    realm: ${KEYCLOAK_REALM:wallet-service}
-    resource: ${KEYCLOAK_CLIENT_ID:payment-api}
-    credentials:
-        secret: ${KEYCLOAK_SECRET:c07ffd5e-09bd-49b4-8471-b6626d70e808}
-    ssl-required: external
-    use-resource-role-mappings: true
-    bearer-only: true

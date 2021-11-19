@@ -1,5 +1,4 @@
-package com.abraao.ribeiro.account.config;
-
+package com.abraao.ribeiro.payment.config;
 
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.KeycloakConfigResolver;
@@ -28,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     final String[] authenticatedUrls = new String[]{
-            "/accounts/**"
+            "/transactions/**"
     };
 
     final String[] staticResources = new String[]{
