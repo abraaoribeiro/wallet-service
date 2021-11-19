@@ -34,3 +34,4 @@ build/
 
 ##Rabbitmq
 data/
+client-api/
