@@ -28,7 +28,7 @@ As configurações internalizadas na pasta config-server-files
 
 ### Desenho Arquitetural
 
-![](../../git/wallet-service/assets/arquitetura.png)
+![](https://github.com/abraaoribeiro/wallet-service/blob/master/assets/arquitetura.png)
 
 ### O que este repositório possui além dos microsserviços ?
 
@@ -76,7 +76,7 @@ data.sql, na pasta resources.
 - username: `root`
 - password: `root`
 
-[Documentação Postman](https://github.com/abraaoribeiro/wallet-service/assets)
+[Documentação Postman](https://github.com/abraaoribeiro/wallet-service/blob/master/assets/Wallet-Service.postman_collection.json)
 
 ## Links dos serviços utilizados
 
