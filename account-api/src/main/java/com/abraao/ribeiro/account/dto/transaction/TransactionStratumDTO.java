@@ -1,5 +1,6 @@
-package com.abraao.ribeiro.account.dto;
+package com.abraao.ribeiro.account.dto.transaction;
 
+import com.abraao.ribeiro.account.dto.account.AccountDTO;
 import com.abraao.ribeiro.account.model.enums.TransactionType;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;

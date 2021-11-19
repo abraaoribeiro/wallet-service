@@ -23,7 +23,7 @@ public class TransactionProducerService {
     public void sendTransation(TransactionStratum transactionDTO) {
         try {
             String json = new ObjectMapper().writeValueAsString(transactionDTO);
-            log.info("Enviando mensagem com dados da conta para a conta : {} ", json);
+            log.info("Mensagem enviada com sucesso : {} ", json);
             rabbitTemplate.convertAndSend(EXCHANGE_TRANSACTION, ROUTING_KEY_TRANSACTION, json);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

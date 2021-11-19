@@ -1,10 +1,11 @@
 package com.abraao.ribeiro.account.service;
 
 import com.abraao.ribeiro.account.client.PaymentClient;
-import com.abraao.ribeiro.account.dto.AccountDTO;
-import com.abraao.ribeiro.account.dto.TransactionDTO;
-import com.abraao.ribeiro.account.dto.TransactionResponseDTO;
-import com.abraao.ribeiro.account.dto.TransactionStratumDTO;
+import com.abraao.ribeiro.account.dto.account.AccountDTO;
+import com.abraao.ribeiro.account.dto.transaction.TransactionDTO;
+import com.abraao.ribeiro.account.dto.transaction.TransactionResponseDTO;
+import com.abraao.ribeiro.account.dto.transaction.TransactionStratumDTO;
+import com.abraao.ribeiro.account.dto.transaction.TransactionStratumListDTO;
 import com.abraao.ribeiro.account.exception.AccountNotFoundException;
 import com.abraao.ribeiro.account.mapper.AccountMapper;
 import com.abraao.ribeiro.account.model.Account;
@@ -14,6 +15,7 @@ import com.abraao.ribeiro.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -89,5 +91,7 @@ public class AccountService {
         return account;
     }
 
-
+    public List<TransactionStratumListDTO> findAllTransactionStratum() {
+        return paymentClient.findAll();
+    }
 }

@@ -5,6 +5,7 @@ import com.abraao.ribeiro.payment.model.TransactionStratum;
 import com.abraao.ribeiro.payment.model.enums.TransactionType;
 import com.abraao.ribeiro.payment.service.TransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,7 @@ public class TransactionController {
     public TransactionStratum createTransaction(@PathVariable TransactionType transactionType, @RequestBody TransactionDTO transactionDTO) {
         return transactionService.createTransaction(transactionDTO);
     }
+
 
 
 }

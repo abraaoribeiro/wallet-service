@@ -4,6 +4,5 @@ public enum TransactionType {
     TRANSFERENC,
     WITHDRAW,
     DEPOSIT,
-    PAYMENTACCOUNT,
-    DOC,TED,PIX
+    PAYMENTACCOUNT
 }

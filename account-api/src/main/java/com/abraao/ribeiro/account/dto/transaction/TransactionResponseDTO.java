@@ -1,4 +1,4 @@
-package com.abraao.ribeiro.account.dto;
+package com.abraao.ribeiro.account.dto.transaction;
 
 import lombok.Data;
 

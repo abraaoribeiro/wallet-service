@@ -1,4 +1,4 @@
-package com.abraao.ribeiro.account.dto;
+package com.abraao.ribeiro.account.dto.account;
 
 import lombok.Data;
 import javax.validation.constraints.NotBlank;
