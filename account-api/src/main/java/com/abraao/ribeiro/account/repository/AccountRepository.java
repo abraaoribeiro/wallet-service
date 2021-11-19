@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    Optional<Account> findByCpf(String cpf);
+    Optional<Account> findByClientCpf(String cpf);
 
     @Modifying
     @Query("update Account u set u.balance = :balance where u.id = :id")

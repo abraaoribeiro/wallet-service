@@ -1,13 +1,13 @@
 package com.abraao.ribeiro.account.controller;
 
 import com.abraao.ribeiro.account.dto.AccountDTO;
-import com.abraao.ribeiro.account.dto.InfoTransactionDTO;
+import com.abraao.ribeiro.account.dto.TransactionDTO;
+import com.abraao.ribeiro.account.dto.TransactionResponseDTO;
 import com.abraao.ribeiro.account.model.Account;
 import com.abraao.ribeiro.account.model.enums.TransactionType;
 import com.abraao.ribeiro.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +30,9 @@ public class AccountController {
     }
 
     @PostMapping("/{transactionType}")
-    public ResponseEntity<?> transaction(@Valid @PathVariable TransactionType transactionType, @RequestBody InfoTransactionDTO infoTransactionDTO){
-        accountService.createTransaction(transactionType,infoTransactionDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public TransactionResponseDTO createTransaction(@Valid @PathVariable TransactionType transactionType, @RequestBody TransactionDTO infoTransactionDTO){
+        return accountService.createTransaction(transactionType,infoTransactionDTO);
     }
 
 }

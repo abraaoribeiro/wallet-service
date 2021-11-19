@@ -26,4 +26,5 @@ public class AddressDTO {
 
     @NotBlank(message = "O campo state não pode ser nulo ou vazio")
     private String state;
+
 }

@@ -1,11 +1,12 @@
 package com.abraao.ribeiro.account.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
@@ -27,7 +28,7 @@ public class Account {
     private Long id;
 
     @Column(nullable = false)
-    private String numberAccount;
+    private String number;
 
     @Column(nullable = false)
     private String agency;
@@ -48,34 +49,7 @@ public class Account {
     @Column(nullable = false)
     private String referenceTransactionId;
 
-    @Column(name = "client_cpf", nullable = false)
-    private String cpf;
+    @Embedded
+    Client client;
 
-    @Column(name = "client_name", nullable = false)
-    private String name;
-
-    @Column(name = "address_zipCode", nullable = false)
-    private String zipCode;
-
-    @Column(name = "address_place", nullable = false)
-    private String place;
-
-    @Column(name = "address_number", nullable = false)
-    private String number;
-
-    @Column(name = "address_complement", nullable = false)
-    private String complement;
-
-    @Column(name = "address_district", nullable = false)
-    private String district;
-
-    @Column(name = "address_city", nullable = false)
-    private String city;
-
-    @Column(name = "address_state", nullable = false)
-    private String state;
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
 }

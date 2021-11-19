@@ -1,7 +1,7 @@
 package com.abraao.ribeiro.account.client;
 
-import com.abraao.ribeiro.account.dto.InfoTransactionDTO;
-import com.abraao.ribeiro.account.dto.InfoTransactionStratum;
+import com.abraao.ribeiro.account.dto.TransactionDTO;
+import com.abraao.ribeiro.account.dto.TransactionStratumDTO;
 import com.abraao.ribeiro.account.model.enums.TransactionType;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface PaymentClient {
 
     @PostMapping("/transactions/{transactionType}")
-    InfoTransactionStratum createTransaction(@PathVariable TransactionType transactionType, @RequestBody InfoTransactionDTO infoTransactionDTO);
+    TransactionStratumDTO createTransaction(@PathVariable TransactionType transactionType, @RequestBody TransactionDTO infoTransactionDTO);
 
     @GetMapping("/transactions/{referenceTransactionId}")
-    InfoTransactionStratum findTransactionByReferenceId(@PathVariable String referenceTransactionId);
+    TransactionStratumDTO findTransactionByReferenceId(@PathVariable String referenceTransactionId);
 }
