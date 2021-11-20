@@ -8,23 +8,27 @@ Wallet Service é um projeto baseado na arquitetura de microservices, onde seu p
 - Intellij
 - Java 11
 - Spring boot
+- Spring Cloud
 - Docker
 - Banco de dados Mysql
 - Swagger
+- Lombok
+- Mapstruct
 
 ## Este repositório possui:
 - [x] Service Discovery utilizando o Spring Cloud Netflix Eureka. 📂 eureka-server;
 
-- [x] Serviço de externalização de variáveis utilizando o Spring Cloud Config Server. 📂 config-server;
-As configurações internalizadas na pasta config-server-files
+- [x] Serviço de externalização de variáveis utilizando o Spring Cloud Config Server. 📂 [config-server](https://github.com/abraaoribeiro/wallet-service/tree/master/config-server]);
+- [ ] 
+As configurações internalizadas na pasta [config-server-files](https://github.com/abraaoribeiro/wallet-service/tree/master/config-server-files)
 
-- [x] Intelligent Routing ("API Gateway") utilizando o Spring Zuul. 📂 zuul;
+- [x] Intelligent Routing ("API Gateway") utilizando o Spring Zuul. 📂 [gateway](https://github.com/abraaoribeiro/wallet-service/tree/master/gateway);
 
-- [ ] Serviço de autenticação utilizando o Keylock  📂 auth;
+- [ ] Serviço de autenticação utilizando o keycloak ;
 
-- [x] Mensageria utilizando 📂 Rabbitmq
+- [x] Mensageria utilizando Rabbitmq
 
-- [x] Microsserviços: 📂 account-api; 📂 payment-api;
+- [x] Microsserviços: 📂 [account-api](https://github.com/abraaoribeiro/wallet-service/tree/master/account-api); 📂 [payment-api](https://github.com/abraaoribeiro/wallet-service/tree/master/payment-api);
 
 ### Desenho Arquitetural
 
