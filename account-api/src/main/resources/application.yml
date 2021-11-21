@@ -17,3 +17,13 @@ eureka:
     fetch-registry: true
     service-url:
         defaultZone: http://localhost:8761/eureka
+
+keycloak:
+    auth-server-url: ${KEYCLOAK_URL:http://localhost:8085/auth}
+    realm: ${KEYCLOAK_REALM:wallet-service}
+    resource: ${KEYCLOAK_CLIENT_ID:account-api}
+    credentials:
+        secret: ${KEYCLOAK_SECRET:3236aec7-54a6-4ea6-a132-c94a14a2be1f}
+    ssl-required: external
+    use-resource-role-mappings: true
+    bearer-only: true
