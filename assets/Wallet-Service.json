@@ -87,13 +87,20 @@
 					"name": "ACCOUNT-create",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJtNW9KODlzOV9CVUx4QjV3QUh6NEZWSkp0aEE3UEpUbjVzbU82aXJJUElrIn0.eyJleHAiOjE2Mzc1Mjk3ODQsImlhdCI6MTYzNzUyOTQ4NCwianRpIjoiMjRlMzJhM2EtNmI4Mi00YzkxLThiOTAtMzQzNmMxMWE2MTQ1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDg1L2F1dGgvcmVhbG1zL3dhbGxldC1zZXJ2aWNlIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImY0MzJkZGI3LWZjMDktNDBkOS1iZTM4LTAwMjU5MDUzMWFiYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFjY291bnQtYXBpIiwic2Vzc2lvbl9zdGF0ZSI6ImRkYjQyMzQzLTNhMTEtNGU5ZS1iYjM5LWE0ZmU1OWUxYmIwOCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlciJ9.m1sk9ysYXglPB6PfGA42I_UosY9NRvpU284m3HqH7_Ic5GKTDVq0B0z_z5Lc21bXSMU0xPcZvWFo_hJX2ipOFFqIM-dACLsZ84QrceRqgfmkptcCdMb8KGfidtOR2Icx18iWOv_ybWU6_NqLyrOOi1ds0qEQ7QLYgUzPZ-loZdPB9YuPsWNy85NAPKGFkNi6KAIA38Il6MgvrTKckuopx2S8ngz91yY927j9MfCJtY3p4D9ox5l2EgqORM5vXfNIQDthIJpx2lqBNxmqt4t9knFO1P3tRCFaE1kRkPyD0oNI2zNaVjOiy9-6MK9uIV4IDCwdUAQXdvcrUA_ZwF0Cxw",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \n    \"number\": \"1164808-2\",\n    \"agency\": \"0071\",\n    \"balance\": \"2000\",\n    \"bank\": {\n        \"number\": \"144\"\n    },\n    \"client\":{\n        \"name\": \"João da Silva\",\n        \"cpf\": \"696.506.700-41\",\n        \"address\":{\n        \"zipCode\": \"67015-300\",\n        \"place\": \"Passagem Maria\",\n        \"number\": \"85\",\n        \"complement\": \"Px ao Supermercado Eldorado\",\n        \"district\": \"Coqueiro\",\n        \"state\": \"PA\",\n        \"city\": \"Belém\"\n    }\n    }\n}",
+							"raw": "{   \n    \"number\": \"1164808-2\",\n    \"agency\": \"0071\",\n    \"balance\": \"2000\",\n    \"bank\": {\n        \"number\": \"144\"\n    },\n    \"client\":{\n        \"name\": \"João da Silva\",\n        \"cpf\": \"696.555.700-41\",\n        \"address\":{\n        \"zipCode\": \"67015-300\",\n        \"place\": \"Passagem Maria\",\n        \"number\": \"85\",\n        \"complement\": \"Px ao Supermercado Eldorado\",\n        \"district\": \"Coqueiro\",\n        \"state\": \"PA\",\n        \"city\": \"Belém\"\n    }\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -101,14 +108,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5555/account/accounts/create",
+							"raw": "http://localhost:8082/accounts/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5555",
+							"port": "8082",
 							"path": [
-								"account",
 								"accounts",
 								"create"
 							]
@@ -141,13 +147,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8082/accounts/TRANSFERENC",
+							"raw": "http://localhost:5555/account/accounts/TRANSFERENC",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8082",
+							"port": "5555",
 							"path": [
+								"account",
 								"accounts",
 								"TRANSFERENC"
 							]
@@ -195,40 +202,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5555/payment/transactions/transation-type/TRANSFERENC/transfer-type/DOC",
+							"raw": "http://localhost:8086/transactions/TRANSFERENC",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5555",
+							"port": "8086",
 							"path": [
-								"payment",
 								"transactions",
-								"transation-type",
-								"TRANSFERENC",
-								"transfer-type",
-								"DOC"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PAYMENT-publishTransation",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:5555/payment/publish/transaction",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "5555",
-							"path": [
-								"payment",
-								"publish",
-								"transaction"
+								"TRANSFERENC"
 							]
 						}
 					},
@@ -259,7 +241,7 @@
 								},
 								{
 									"key": "password",
-									"value": "user",
+									"value": "admin",
 									"type": "text"
 								},
 								{
@@ -269,7 +251,7 @@
 								},
 								{
 									"key": "client_secret",
-									"value": "d6e1e8a3-3713-4658-9178-aae73a2c1e09",
+									"value": "3236aec7-54a6-4ea6-a132-c94a14a2be1f",
 									"type": "text"
 								}
 							]

@@ -76,7 +76,7 @@ data.sql, na pasta resources.
 - username: `root`
 - password: `root`
 
-[Documentação Postman](https://github.com/abraaoribeiro/wallet-service/blob/master/assets/Wallet-Service.postman_collection.json)
+[Documentação Postman](https://github.com/abraaoribeiro/wallet-service/blob/master/assets/Wallet-Service.json)
 
 ## Links dos serviços utilizados
 
