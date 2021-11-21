@@ -3,7 +3,7 @@ server:
 
 spring:
     rabbitmq:
-      host: rabbitmq
+      host: localhost
       port: 5672
       username: admin
       password: 123456
@@ -24,3 +24,13 @@ eureka:
     fetch-registry: true
     service-url:
         defaultZone: http://localhost:8761/eureka
+
+keycloak:
+    auth-server-url: ${KEYCLOAK_URL:http://localhost:8085/auth}
+    realm: ${KEYCLOAK_REALM:wallet-service}
+    resource: ${KEYCLOAK_CLIENT_ID:payment-api}
+    credentials:
+        secret: ${KEYCLOAK_SECRET:063f2b2c-f4b1-4d89-9b2b-9355e71e46e5}
+    ssl-required: external
+    use-resource-role-mappings: true
+    bearer-only: true
